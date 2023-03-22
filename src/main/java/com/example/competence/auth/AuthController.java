@@ -1,5 +1,8 @@
 package com.example.competence.auth;
 
+import com.example.competence.Entity.Personne;
+import com.example.competence.auth.dto.RegisterRequestDto;
+import com.example.competence.auth.dto.RequestLoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +34,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("register")
-    public Utilisateur register(@RequestBody RegisterRequestDto dto){
+    public Personne register(@RequestBody RegisterRequestDto dto){
         return service.register(dto);
     }
 

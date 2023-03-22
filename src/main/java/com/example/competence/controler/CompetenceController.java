@@ -3,6 +3,7 @@ package com.example.competence.controler;
 import com.example.competence.Entity.Competence;
 import com.example.competence.Services.CompetenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class CompetenceController {
         return competenceService.findAll();
     }
 
+    @Secured("MANAGER")
     @PostMapping("/")
     public Competence create(Competence competence) {
         return competenceService.createCompetence(competence);

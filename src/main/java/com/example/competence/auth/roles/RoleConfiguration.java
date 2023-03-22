@@ -1,9 +1,9 @@
 package com.example.competence.auth.roles;
 
-import kira.formation.spring.security.auth.AuthService;
-import kira.formation.spring.security.auth.dto.RegisterRequestDto;
-import kira.formation.spring.security.utilisateur.Utilisateur;
-import kira.formation.spring.security.utilisateur.UtilisateurRepository;
+import com.example.competence.Entity.Personne;
+import com.example.competence.Repository.PersonneRepository;
+import com.example.competence.auth.AuthService;
+import com.example.competence.auth.dto.RegisterRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,12 +16,12 @@ public class RoleConfiguration {
     public static Role USER = null;
 
     @Autowired
-    private void init(RoleRepository repository, AuthService service, UtilisateurRepository utilisateurRepository){
-        ADMIN = repository.save(new Role(1L, "ADMIN"));
-        USER = repository.save(new Role(2L, "USER"));
+    private void init(RoleRepository repository, AuthService service, PersonneRepository utilisateurRepository){
+        ADMIN = repository.save(new Role(1L, "ADMIN", "Administrateur", "Administrateur du site"));
+        USER = repository.save(new Role(2L, "USER", "Utilisateur", "Utilisateur du site"));
         service.register(new RegisterRequestDto("user","azerty"));
-        Utilisateur admin = service.register(new RegisterRequestDto("admin", "admin"));
-        admin.setRoles(List.of(new Role(1L, "ADMIN")));
+        Personne admin = service.register(new RegisterRequestDto("admin", "admin"));
+        admin.setRoles(List.of(new Role(1L, "ADMIN","Administrateur", "Administrateur du site")));
         utilisateurRepository.save(admin);
     }
 }

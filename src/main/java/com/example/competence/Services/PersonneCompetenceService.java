@@ -10,6 +10,7 @@ import com.example.competence.Entity.PersonneCompetence;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.competence.Enums.NiveauCompetence.UTILISATION_INTERMEDIAIRE;
 
@@ -130,6 +131,32 @@ public class PersonneCompetenceService {
             }
         }
         return personnes;
+    }
+
+    public int getNiveauGlobal(Long idPersonne) {
+        List<PersonneCompetence> personneCompetences = this.findByPersonneId(idPersonne);
+        int niveauGlobal = 0;
+        for (PersonneCompetence personneCompetence : personneCompetences) {
+            niveauGlobal += personneCompetence.getNiveau().ordinal();
+        }
+        return niveauGlobal;
+    }
+
+    public Personne getPersonnesEquipeBestNiveauGlobal(Long idPersonne) {
+        List<Personne> personnes = new ArrayList<>();
+        Personne personne = personneService.findById(idPersonne);
+        Set<Personne> personnesEquipe = personne.getEquipe().getMembres();;
+        int niveauGlobalMax = 0;
+        Personne personneBestNiveauGlobal = null;
+        for (Personne personneEquipe : personnesEquipe) {
+            int niveauGlobal = this.getNiveauGlobal(personneEquipe.getId());
+            if (niveauGlobal > niveauGlobalMax) {
+                niveauGlobalMax = niveauGlobal;
+                personneBestNiveauGlobal = personneEquipe;
+            }
+        }
+        return personneBestNiveauGlobal;
+
     }
 
 

@@ -1,7 +1,10 @@
 package com.example.competence.Entity;
 
+import com.example.competence.auth.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.*;
 
 @Entity
 @Data
@@ -34,4 +37,8 @@ public class Personne {
     @ManyToOne
     @JoinColumn(name = "id_equipe", nullable = false)
     private Equipe equipe;
+
+    @ManyToMany
+    private List<Role> roles = new ArrayList<>();
+
 }

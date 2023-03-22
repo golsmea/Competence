@@ -3,6 +3,7 @@ package com.example.competence.controler;
 import com.example.competence.Entity.Personne;
 import com.example.competence.Entity.PersonneCompetence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import com.example.competence.Services.PersonneService;
 
@@ -29,6 +30,7 @@ public class PersonneController {
         return personneService.findAll();
     }
 
+    @Secured("MANAGER")
     @PostMapping("/")
     public Personne create(Personne personne) {
         return personneService.createPersonne(personne);
@@ -43,6 +45,8 @@ public class PersonneController {
     public Personne update(@RequestBody Personne personne) {
         return personneService.update(personne);
     }
+
+
 
 
 

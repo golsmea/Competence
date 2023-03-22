@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.competence.Services.PersonneService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class EquipeService {
@@ -54,6 +57,12 @@ public class EquipeService {
         Equipe equipe = this.findById(idEquipe);
         equipe.getMembres().removeIf(personne-> Objects.equals(personne.getId(), idPersonne));
         this.update(equipe);
+    }
+
+    public Set<Personne> getMembresByPersonne(Long idPersonne){
+        Personne personne = this.personneService.findById(idPersonne);
+        return personne.getEquipe().getMembres();
+
     }
 
 }

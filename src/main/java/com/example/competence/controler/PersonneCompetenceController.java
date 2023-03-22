@@ -19,6 +19,7 @@ public class PersonneCompetenceController {
         this.personneCompetenceService = personneCompetenceService;
     }
 
+ 
     @GetMapping("/")
     public Iterable<PersonneCompetence> findAll() {
         return personneCompetenceService.findAll();
@@ -61,5 +62,19 @@ public class PersonneCompetenceController {
     public List<Personne> getPersonnesWithNiveauSup5(@PathVariable Long idCompetence) {
         return personneCompetenceService.getPersonnesWithNiveauSup5( idCompetence);
     }
+
+    @GetMapping("personne/{idPersonne}")
+    public int getNiveauGlobal(@PathVariable Long idPersonne) {
+        return personneCompetenceService.getNiveauGlobal(idPersonne);
+    }
+
+
+
+    @GetMapping("/equipe/{idEquipe}/bestNiveauGlobal")
+    public Personne getPersonnesEquipeBestNiveauGlobal(@PathVariable Long idEquipe) {
+        return personneCompetenceService.getPersonnesEquipeBestNiveauGlobal(idEquipe);
+    }
+
+
 
 }
